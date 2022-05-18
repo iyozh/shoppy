@@ -4,7 +4,7 @@ from django.core.mail import send_mail
 from project.celery import app
 
 
-@app.task
+@shared_task
 def send_email_confirmation(email):
     send_mail('Вы успешно зарегистрировались.',
               'Подтвердите своей аккаунт',

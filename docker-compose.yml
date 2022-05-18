@@ -30,11 +30,14 @@ services:
     image: redis:6-alpine
 
   celery:
-    image: web-image
+    build: .
     restart: always
     volumes:
       - .:/app
     command: celery -A project worker -l info
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379
+      - CELERY_RESULT_BACKEND=redis://redis:6379
     depends_on:
       - redis
       - db
