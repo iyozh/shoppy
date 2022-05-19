@@ -5,9 +5,9 @@ from project.celery import app
 
 
 @shared_task
-def send_email_confirmation(email):
+def send_email_confirmation(email, message):
     send_mail('Вы успешно зарегистрировались.',
-              'Подтвердите своей аккаунт',
+              f'Подтвердите своей аккаунт, используя этот код: {message}',
               'shoppyofficial22@gmail.com',
               [email],
               fail_silently=False)
