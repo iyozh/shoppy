@@ -1,13 +1,11 @@
 {% extends '_base.html' %}
 {% block body %}
-Confirmation Page
-<article>
-        <form method="post">
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit" class="button" id="id_sign_in">Confirm</button>
-            <input name="next" type="hidden" value="{{ next }}">
-        </form>
-</article>
-
+{% if is_confirmed %}
+Вы успешно подтвердили ваш аккаунт. Теперь вы можете авторизоваться!
+{% elif msg %}
+Аккаунт уже подтвержден
+{% else %}
+Мы отправили письмо с подтверждением аккаунта на адрес: {{ email }}
+Пожалуйста, проверьте почту
+{% endif %}
 {% endblock %}

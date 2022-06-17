@@ -25,6 +25,8 @@ services:
       - POSTGRES_PASSWORD=postgres
     depends_on:
       - db
+      - elastic
+      - celery
 
   redis:
     image: redis:6-alpine
@@ -41,3 +43,10 @@ services:
     depends_on:
       - redis
       - db
+      - elastic
+  elastic:
+    image: elasticsearch:7.8.1
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node

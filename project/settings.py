@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'applications.auth_app.apps.AuthAppConfig',
     'applications.showcase.apps.ShowcaseConfig',
+    'applications.cart.apps.CartConfig',
+    'django_elasticsearch_dsl',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'applications.cart.context_processors.cart'
             ],
         },
     },
@@ -126,19 +129,23 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "static"),
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = reverse_lazy("showcase:home")
+LOGIN_REDIRECT_URL = reverse_lazy("showcase:product_list")
 
 AUTH_USER_MODEL = 'auth_app.User'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'shoppyoficcial22@gmail.com'
-EMAIL_HOST_PASSWORD = '12345678#aB'
+EMAIL_HOST_PASSWORD = 'qwilywnzhudxesmq'
 EMAIL_PORT = 587
 
 CELERY_BROKER_URL = 'redis://redis:6379'
@@ -146,3 +153,15 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+CART_SESSION_ID = 'cart'
+
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': os.getenv("ELASTICSEARCH_DSL_HOSTS", 'elastic')
+    },
+}

@@ -2,3 +2,5 @@ Django
 psycopg2
 celery==4.2.1
 redis==3.2.0
+pillow
+django-elasticsearch-dsl

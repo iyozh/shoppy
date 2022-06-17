@@ -1,8 +1,41 @@
 {% extends '_base.html' %}
 
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'showcase/style.css' %}">
+{% endblock %}
+
+{% block title %}
+    {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
 {% block body %}
-
-
-<h2>Hi, {% if not user.is_authenticated %} anonymous {% else %}{{ user.email }}! {% endif %}</h2>
-
+    <div id="sidebar">
+        <h3>Categories</h3>
+        <ul>
+            <li {% if not category %}class="selected"{% endif %}>
+                <a href="{% url 'showcase:product_list' %}">All</a>
+            </li>
+            {% for c in categories %}
+                <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+                    <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product-item">
+                    {% if product.image %}
+                     <img src="{{ product.image }}">
+                    {% else %}
+                     <img src="/media/product-image-placeholder.jpg">
+                    {% endif %}
+                    <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
+                    <span class="price">  ${{ product.price }}</span>
+                    <a href="" class="button">В корзину</a>
+                </div>
+        {% endfor %}
+    </div>
 {% endblock %}

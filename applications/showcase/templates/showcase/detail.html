@@ -1,0 +1,44 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.title }}{% else %}Products{% endif %}
+{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'showcase/detail.css' %}">
+{% endblock %}
+{% block body %}
+
+<main class="container">
+
+  <!-- Left Column / Headphones Image -->
+  <div class="left-column">
+    {% if product.image %}
+                     <img src="{{ product.image.url }}">
+    {% else %}
+                     <img src="/media/product-image-placeholder.jpg">
+    {% endif %}
+  </div>
+
+
+  <!-- Right Column -->
+  <div class="right-column">
+
+    <!-- Product Description -->
+    <div class="product-description">
+      <span><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></span>
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description|linebreaks }}</p>
+    </div>
+
+    <!-- Product Pricing -->
+    <div class="product-price">
+      <span>$ {{ product.price }}</span>
+      <form action="{% url 'cart:cart_add' product.id %}" method="post">
+    {{ cart_product_form }}
+    {% csrf_token %}
+    <input type="submit" value="Add to cart">
+</form>
+    </div>
+  </div>
+</main>
+{% endblock %}
