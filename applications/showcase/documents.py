@@ -10,6 +10,8 @@ class ProductDocument(Document):
         'name': fields.TextField(),
         'slug': fields.TextField(),
     })
+    absolute_url = fields.TextField()
+
     class Index:
         name = 'products'
         settings = {'number_of_shards': 1,
@@ -26,8 +28,11 @@ class ProductDocument(Document):
             'slug',
             'price',
             'image',
-            'available'
+            'available',
         ]
+
+    def prepare_absolute_url(self, instance):
+        return instance.get_absolute_url()
 
     def get_queryset(self):
         return super(ProductDocument, self).get_queryset().select_related(
