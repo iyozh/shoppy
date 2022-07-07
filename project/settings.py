@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'applications.auth_app.apps.AuthAppConfig',
     'applications.showcase.apps.ShowcaseConfig',
     'applications.cart.apps.CartConfig',
+    'applications.orders.apps.OrdersConfig',
     'django_elasticsearch_dsl',
 ]
 

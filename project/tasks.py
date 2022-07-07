@@ -2,7 +2,7 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
+from celery import task
 
 @shared_task
 def send_email_confirmation(email, link):
@@ -19,3 +19,10 @@ def send_email_confirmation(email, link):
 @shared_task
 def hello():
     print("Hello there!")
+
+@shared_task
+def reindex_product(product_id):
+    from applications.showcase.models import Product
+
+    product = Product.objects.get(id=product_id)
+    product.add_index_to_es()

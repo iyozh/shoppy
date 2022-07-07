@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from applications.showcase.mixins.elastic_search_mixin import ElasticSearchMixin
+
 
 class Category(models.Model):
     name = models.CharField(max_length=200, db_index=True)
@@ -18,7 +20,7 @@ class Category(models.Model):
         return reverse('showcase:product_list_by_category',
                        args=[self.slug])
 
-class Product(models.Model):
+class Product(models.Model, ElasticSearchMixin):
     category = models.ForeignKey(Category, related_name='products', on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=False, blank=False)
     description = models.TextField(null=True, blank=True)

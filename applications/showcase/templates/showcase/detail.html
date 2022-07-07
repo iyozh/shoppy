@@ -37,6 +37,9 @@
     {{ cart_product_form }}
     {% csrf_token %}
     <input type="submit" value="Add to cart">
+        <a href="{% url 'orders:order_create' %}" class="button">
+    Checkout
+      </a>
 </form>
     </div>
   </div>
