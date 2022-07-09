@@ -145,8 +145,8 @@ AUTH_USER_MODEL = 'auth_app.User'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'shoppyoficcial22@gmail.com'
-EMAIL_HOST_PASSWORD = 'qwilywnzhudxesmq'
+EMAIL_HOST_USER = 'shoppyofficial3@gmail.com'
+EMAIL_HOST_PASSWORD = 'oeoynlnjmxucnqfw'
 EMAIL_PORT = 587
 
 CELERY_BROKER_URL = 'redis://redis:6379'

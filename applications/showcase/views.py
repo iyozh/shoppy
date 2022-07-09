@@ -1,7 +1,11 @@
+from django.db.models import Count
 from django.shortcuts import render
+from django.template.loader import render_to_string
 
 from .documents import ProductDocument
+from ..auth_app.models import User
 from ..cart.forms import CartAddProductForm
+from ..orders.models import OrderItem
 
 
 def home(request):

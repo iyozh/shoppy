@@ -73,7 +73,7 @@
                   <hr class="my-4">
 
                   <div class="d-flex justify-content-between mb-4">
-                    <h5 class="text-uppercase">{{ cart|length }} items</h5>
+                    <h5 class="text-uppercase">{{ cart|length }} {% if cart|length > 1 %} items {% else %} item {% endif %}</h5>
                     <h5>${{ cart.get_total_price }}</h5>
                   </div>
 

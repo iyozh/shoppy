@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from project.tasks import send_order_notification
 from .models import OrderItem
 from .forms import OrderCreateForm
 from applications.cart.cart import Cart
@@ -17,6 +19,7 @@ def order_create(request):
                                          quantity=item['quantity'])
             # очистка корзины
             cart.clear()
+            send_order_notification.delay(order.id)
             return render(request, 'orders/created.html',
                           {'order': order})
     else:

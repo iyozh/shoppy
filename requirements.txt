@@ -3,4 +3,5 @@ psycopg2
 celery==4.2.1
 redis==3.2.0
 pillow
+flower
 django-elasticsearch-dsl

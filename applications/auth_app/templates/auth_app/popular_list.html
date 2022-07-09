@@ -1,0 +1,18 @@
+<html>
+<body>
+<p>Привет!<br/>
+    <br/>Держи самый популярный товар по количеству заказов за неделю!
+    <!-- Product Description -->
+    <div class="product-description">
+      <h1>{{ popular_product.product__name }}</h1>
+      <p>{{ popular_product.product__description|linebreaks }}</p>
+    </div>
+
+    <!-- Product Pricing -->
+    <div class="product-price">
+      <span>$ {{ popular_product.product__price }}</span><br>
+        <span>Количество заказов за неделю: {{ popular_product.total_orders }}</span>
+    </div>
+<img src="https://vjoy.cc/wp-content/uploads/2020/11/1f6d6e6b972fda4300fd97601d368f2a5605ee92r1-604-604v2_hq.jpg">
+</body>
+</html>
