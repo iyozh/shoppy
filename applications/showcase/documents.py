@@ -1,7 +1,16 @@
 from django_elasticsearch_dsl import Document, fields
 from django_elasticsearch_dsl.registries import registry
+from elasticsearch_dsl import analyzer
 
 from applications.showcase.models import Product, Category
+
+
+html_strip = analyzer(
+    'html_strip',
+    tokenizer="standard",
+    filter=["lowercase", "stop", "snowball"],
+    char_filter=["html_strip"]
+)
 
 
 @registry.register_document
@@ -12,6 +21,13 @@ class ProductDocument(Document):
     })
     absolute_url = fields.TextField()
 
+    name = fields.TextField(
+        analyzer=html_strip,
+        fields={
+            'raw': fields.TextField(analyzer='keyword'),
+        }
+    )
+
     class Index:
         name = 'products'
         settings = {'number_of_shards': 1,
@@ -21,7 +37,6 @@ class ProductDocument(Document):
         model = Product
 
         fields = [
-            'name',
             'description',
             'created_at',
             'updated_at',
