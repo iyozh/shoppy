@@ -28,7 +28,6 @@ services:
       - elastic
       - celery
       - flower
-      - celery-beat
 
   redis:
     image: redis:6-alpine
@@ -51,21 +50,21 @@ services:
       - db
       - elastic
 
-  celery-beat:
-    build: .
-    command: celery -A project beat -l info
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-      - redis
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379
-      - CELERY_RESULT_BACKEND=redis://redis:6379
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_HOST=postgres
+#  celery-beat:
+#    build: .
+#    command: celery -A project beat -l info
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - db
+#      - redis
+#    environment:
+#      - CELERY_BROKER_URL=redis://redis:6379
+#      - CELERY_RESULT_BACKEND=redis://redis:6379
+#      - POSTGRES_DB=postgres
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=postgres
+#      - POSTGRES_HOST=postgres
 
   flower:
     build: .
@@ -88,3 +87,4 @@ services:
       - "9200:9200"
     environment:
       - discovery.type=single-node
+      - network.host=0.0.0.0
