@@ -36,8 +36,8 @@ def product_list(request, category_slug=None):
         form = SearchProductsForm(request.POST)
         if form.is_valid():
             search_value = form.cleaned_data.get("search_input")
-            filters.append(Q('bool', should=[Q('match', name=search_value),
-                                             Q('match', description=search_value)]))
+            filters.append(Q('bool', should=[Q('multi_match', query=search_value, fields=['name', 'description'],
+                                               fuzziness='auto')]))
     else:
         if category_slug:
             category = get_object_or_404(Category, slug=category_slug)
